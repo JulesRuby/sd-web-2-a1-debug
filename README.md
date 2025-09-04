@@ -51,6 +51,6 @@ By completing this assignment, you will practice:
 
 - Verifying a Node.js development environment.
 - Debugging common HTML, CSS, and JavaScript errors.
-- Reinforce familarity with foundational Git Practices
+- Reinforce familiarity with foundational Git Practices
 - Organizing a project with a dedicated asset folder.
 - Deploying a static website to GitHub Pages.
