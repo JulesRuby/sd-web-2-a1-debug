@@ -14,6 +14,11 @@ const users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   console.log("DOM fully loaded and parsed");
+
+
 // STORED ELEMENT REFERENCES
 const namesList = document.getElementById("names-list");
 const youngCharactersList = document.getElementById("young-characters-list");
@@ -27,23 +32,34 @@ const brokenArrayErrors = document.getElementById("broken-array-errors");
 const createListItem = (userData) => {
   const listItem = document.createElement("li");
   const idSpan = document.createElement("span");
+  const textNode = document.createTextNode(userData.name);
 
   idSpan.classList.add("id-span");
-  idSpan.textContent = `ID: ${userData.id}`;
+  idSpan.textContent = `ID: ${userData.id} `;
+
+  console.log({idSpan});
+  console.log(listItem);
+
   listItem.appendChild(idSpan);
+  console.log(listItem);
 
   // li.textContent = userData.id;
-  listItem.textContent = userData.name;
+  // listItem.textContent = userData.name;
+  listItem.appendChild(textNode);
   return listItem;
 }
 
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
 const populateList = (outputElement, userArray) => {
+  console.log(outputElement);
   const listFragment = document.createDocumentFragment();
+
+  console.log(listFragment);
 
   userArray.forEach((user) => {
     // create a list item using the helper function and append it to the fragment
     const userListItem = createListItem(user);
+    console.log(listFragment)
     listFragment.appendChild(userListItem);
   });
 
@@ -80,3 +96,5 @@ populateList(namesList, users);
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
+
+// });
