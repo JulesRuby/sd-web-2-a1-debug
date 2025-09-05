@@ -33,7 +33,7 @@ const createListItem = (userData) => {
   listItem.appendChild(idSpan);
 
   // li.textContent = userData.id;
-  li.textContent = userData.name;
+  listItem.textContent = userData.name;
   return listItem;
 }
 
@@ -67,6 +67,7 @@ const logUserData = (userArray, ...args) => {
 
 // 1. Print out the names of each character in the console, then render them in the HTML list with id "names-list"
 logUserData(users);
+populateList(namesList, users);
 
 
 
