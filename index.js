@@ -37,33 +37,22 @@ const createListItem = (userData) => {
   idSpan.classList.add("id-span");
   idSpan.textContent = `ID: ${userData.id} `;
 
-  // console.log({idSpan});
-  // console.log(listItem);
-
   listItem.appendChild(idSpan);
-  // console.log(listItem);
-
-  // li.textContent = userData.id;
-  // listItem.textContent = userData.name;
   listItem.appendChild(textNode);
+
   return listItem;
 }
 
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
-const populateList = (outputElement, userArray, ...args) => {
-  // console.log(outputElement);
+const populateList = (outputElement, userArray, age) => {
   const listFragment = document.createDocumentFragment();
-
-  // console.log(listFragment);
 
   userArray.forEach((user) => {
     // create a list item using the helper function and append it to the fragment
     const userListItem = createListItem(user);
-    // console.log(listFragment)
     listFragment.appendChild(userListItem);
   });
 
-  // append the fragment to the output element
   outputElement.appendChild(listFragment);
 }
 
@@ -98,6 +87,23 @@ logUserData(ageFortyArray, "name", "age");
 populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
+
+// NOTE: so I guess I kind of already did this above, so I'm going to paste the code here and comment it out for reference, but I'm leaving it up top because arrow functions and I need it to exist before it's use cases.
+
+// *****Original function definition LINE 47*****
+
+// const populateList = (outputElement, userArray, ...args) => {
+//   const listFragment = document.createDocumentFragment();
+
+//   userArray.forEach((user) => {
+//     // create a list item using the helper function and append it to the fragment
+//     const userListItem = createListItem(user);
+//     listFragment.appendChild(userListItem);
+//   });
+
+//   outputElement.appendChild(listFragment);
+// }
+
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
 
