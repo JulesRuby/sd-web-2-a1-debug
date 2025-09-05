@@ -37,11 +37,11 @@ const createListItem = (userData) => {
   idSpan.classList.add("id-span");
   idSpan.textContent = `ID: ${userData.id} `;
 
-  console.log({idSpan});
-  console.log(listItem);
+  // console.log({idSpan});
+  // console.log(listItem);
 
   listItem.appendChild(idSpan);
-  console.log(listItem);
+  // console.log(listItem);
 
   // li.textContent = userData.id;
   // listItem.textContent = userData.name;
@@ -51,15 +51,15 @@ const createListItem = (userData) => {
 
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
 const populateList = (outputElement, userArray) => {
-  console.log(outputElement);
+  // console.log(outputElement);
   const listFragment = document.createDocumentFragment();
 
-  console.log(listFragment);
+  // console.log(listFragment);
 
   userArray.forEach((user) => {
     // create a list item using the helper function and append it to the fragment
     const userListItem = createListItem(user);
-    console.log(listFragment)
+    // console.log(listFragment)
     listFragment.appendChild(userListItem);
   });
 
@@ -75,13 +75,15 @@ const logUserData = (userArray, ...args) => {
   userArray.forEach((user) => {
     const userInfo = attributes.map((attr) => `${attr}: ${user[attr]}`).join(`,\n`);
 
-    console.log(userInfo);
+    console.log(`${userInfo}\n\n`);
   })
 }
 
 // broken test data for exercise 6
 
 // 1. Print out the names of each character in the console, then render them in the HTML list with id "names-list"
+console.log("=============\nPart 1: all Users\n==============\n\n");
+
 logUserData(users);
 populateList(namesList, users);
 
@@ -90,6 +92,8 @@ populateList(namesList, users);
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
 
 const ageFortyArray = users.filter((user) => user.age < 40);
+console.log("=============\nPart 2: Users under 40\n==============\n\n");
+
 logUserData(ageFortyArray);
 populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
 
