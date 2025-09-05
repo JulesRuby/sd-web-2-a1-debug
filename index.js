@@ -14,6 +14,30 @@ const users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
+// STORED ELEMENT REFERENCES
+const namesList = document.getElementById("names-list");
+const youngCharactersList = document.getElementById("young-characters-list");
+const functionList = document.getElementById("function-list");
+const ageFilterList = document.getElementById("age-filter-list");
+const errorMessages = document.getElementById("error-messages");
+const brokenArrayErrors = document.getElementById("broken-array-errors");
+
+// HELPER FUNCTIONS
+// creates a list item from a user object contained within the users array
+const createListItem = (userData) => {
+  const listItem = document.createElement("li");
+  const idSpan = document.createElement("span");
+
+  idSpan.classList.add("");
+  idSpan.textContent = `(${userData.id}) `;
+  listItem.appendChild(idSpan);
+
+  li.textContent = userData.id;
+  li.textContent = userData.name;
+  return listItem;
+}
+
+
 // broken test data for exercise 6
 
 // 1. Print out the names of each character in the console, then render them in the HTML list with id "names-list"
