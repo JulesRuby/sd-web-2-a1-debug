@@ -50,7 +50,7 @@ const createListItem = (userData) => {
 }
 
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
-const populateList = (outputElement, userArray) => {
+const populateList = (outputElement, userArray, ...args) => {
   // console.log(outputElement);
   const listFragment = document.createDocumentFragment();
 
@@ -94,7 +94,7 @@ populateList(namesList, users);
 const ageFortyArray = users.filter((user) => user.age < 40);
 console.log("=============\nPart 2: Users under 40\n==============\n\n");
 
-logUserData(ageFortyArray);
+logUserData(ageFortyArray, "name", "age");
 populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
