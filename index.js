@@ -28,15 +28,28 @@ const createListItem = (userData) => {
   const listItem = document.createElement("li");
   const idSpan = document.createElement("span");
 
-  idSpan.classList.add("");
-  idSpan.textContent = `(${userData.id}) `;
+  idSpan.classList.add("id-span");
+  idSpan.textContent = `$ID: {userData.id}`;
   listItem.appendChild(idSpan);
 
-  li.textContent = userData.id;
+  // li.textContent = userData.id;
   li.textContent = userData.name;
   return listItem;
 }
 
+// creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
+const populateList = (outputElement, userArray) => {
+  const listFragment = document.createDocumentFragment();
+
+  userArray.forEach((user) => {
+    // create a list item using the helper function and apend it to the fragment
+    const userListItem = createListItem(user);
+    listFragment.appendChild(userListItem);
+  });
+
+  // append the fragment to the output element
+  outputElement.appendChild(listFragment);
+}
 
 // broken test data for exercise 6
 
