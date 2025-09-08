@@ -1,7 +1,7 @@
 "use strict";
 
 // sample data - expanded Star Wars characters with varied ages
-const users = [
+let users = [
   { id: 1, name: "Luke Skywalker", age: 23 },
   { id: 2, name: "Darth Vader", age: 45 },
   { id: 3, name: "Princess Leia", age: 23 },
@@ -28,6 +28,15 @@ const errorMessages = document.getElementById("error-messages");
 const brokenArrayErrors = document.getElementById("broken-array-errors");
 
 // HELPER FUNCTIONS
+// Tests the age parameter to ensure it's a positive, "Finite" integer
+const testAgeParam  = (value) => {
+  return (
+    Number.isFinite(value) &&
+    Number.isInteger(value) &&
+    value > 0 &&
+    value !== Infinity
+  );
+}
 // creates a list item from a user object contained within the users array
 const createListItem = (userData) => {
   const listItem = document.createElement("li");
@@ -44,8 +53,16 @@ const createListItem = (userData) => {
 }
 
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
-const populateList = (outputElement, userArray, age) => {
+const populateList = (outputElement, userArray, age = null) => {
   const listFragment = document.createDocumentFragment();
+  console.log({userArray})
+  console.log(`${isNaN(age)}`)
+  userArray = [ { id: 1, name: "Luke Skywalker", age: 23 },
+    { id: 2, name: "Darth Vader", age: 45 },
+    { id: 3, name: "Princess Leia", age: 23 }];
+    console.log({userArray})
+    userArray = (isNaN(age)) ? userArray : userArray.filter(user => user.age < age);
+  console.log({userArray})
 
   userArray.forEach((user) => {
     // create a list item using the helper function and append it to the fragment
@@ -74,7 +91,7 @@ const logUserData = (userArray, ...args) => {
 console.log("=============\nPart 1: all Users\n==============\n\n");
 
 logUserData(users);
-populateList(namesList, users);
+populateList(namesList, users, 40);
 
 
 
