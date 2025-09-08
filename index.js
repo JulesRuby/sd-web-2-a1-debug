@@ -14,6 +14,11 @@ let users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
+// Empty array to contain error messages
+const errors = [];
+
+
+
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   console.log("DOM fully loaded and parsed");
@@ -36,7 +41,14 @@ const testAgeParam  = (value) => {
     value > 0 &&
     value !== Infinity
   );
-}
+};
+
+const checkName = (user) => {
+
+  if (!user.hasOwnProperty("name")) {
+    const errorMessage = `Error: User object with ID ${user.id} is missing a "name" property.`;
+};
+
 // creates a list item from a user object contained within the users array
 const createListItem = (userData) => {
   const listItem = document.createElement("li");
