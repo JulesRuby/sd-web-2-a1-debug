@@ -107,6 +107,14 @@ ul li:last-child {
   margin-bottom: 0;
 }
 
+.id-span {
+  display: inline-block;
+  font-weight: bold;
+  color: black;
+  padding-right: 1rem;
+  width: 5em;
+}
+
 /* Error message styles */
 #error-messages,
 #broken-array-errors {
