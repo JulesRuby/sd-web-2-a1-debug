@@ -55,13 +55,11 @@ const createListItem = (userData) => {
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
 const populateList = (outputElement, userArray, age = null) => {
   const listFragment = document.createDocumentFragment();
+  console.log('age: ',age);
   console.log({userArray})
-  console.log(`${isNaN(age)}`)
-  userArray = [ { id: 1, name: "Luke Skywalker", age: 23 },
-    { id: 2, name: "Darth Vader", age: 45 },
-    { id: 3, name: "Princess Leia", age: 23 }];
-    console.log({userArray})
-    userArray = (isNaN(age)) ? userArray : userArray.filter(user => user.age < age);
+  console.log(`filtered array:`, userArray.filter(user => user.age < age));
+
+  userArray = (testAgeParam(age)) ? userArray.filter(user => user.age < age) : userArray;
   console.log({userArray})
 
   userArray.forEach((user) => {
@@ -91,7 +89,7 @@ const logUserData = (userArray, ...args) => {
 console.log("=============\nPart 1: all Users\n==============\n\n");
 
 logUserData(users);
-populateList(namesList, users, 40);
+populateList(namesList, users);
 
 
 
@@ -121,8 +119,12 @@ populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choic
 //   outputElement.appendChild(listFragment);
 // }
 
+populateList(functionList, users);
+
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
+
+populateList(ageFilterList, users, 40);
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
