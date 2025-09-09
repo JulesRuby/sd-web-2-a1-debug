@@ -46,7 +46,7 @@ const brokenArrayErrors = document.getElementById("broken-array-errors");
 
 // HELPER FUNCTIONS
 // Tests the age parameter to ensure it's a positive, "Finite" integer
-const testAgeParam  = (value) => {
+const testAgeParam  = value => {
   return (
     Number.isFinite(value) &&
     Number.isInteger(value) &&
@@ -55,10 +55,16 @@ const testAgeParam  = (value) => {
   );
 };
 
+// accepts user Object as argument and checks to see if the Object contains a "name" property and is also not an empty string.
 const checkName = (user) => {
+  if (!user.hasOwnProperty("name") || !!user.name) {
+    const nameError = new TypeError(
+      `Error: User object with ID ${user.id} is missing a valid "name" property.`
+    );
 
-  if (!user.hasOwnProperty("name")) {
-    const errorMessage = `Error: User object with ID ${user.id} is missing a "name" property.`;
+    console.error(nameError);
+    errors.push(nameError);
+  }
 };
 
 // creates a list item from a user object contained within the users array
