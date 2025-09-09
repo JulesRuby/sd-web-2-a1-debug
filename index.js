@@ -27,14 +27,8 @@ const badUsers = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
-// Empty array to contain error messages
+// Empty array to contain error messages (NOT REALLY NECESSARY, BUT WHY NOT)
 const errors = [];
-
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log("DOM fully loaded and parsed");
-
 
 // STORED ELEMENT REFERENCES
 const namesList = document.getElementById("names-list");
@@ -85,15 +79,12 @@ const createListItem = (userData) => {
 // creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
 const populateList = (outputElement, userArray, age = null) => {
   const listFragment = document.createDocumentFragment();
-  console.log('age: ',age);
-  console.log({userArray})
-  console.log(`filtered array:`, userArray.filter(user => user.age < age));
-
   userArray = (testAgeParam(age)) ? userArray.filter(user => user.age < age) : userArray;
-  console.log({userArray})
 
   userArray.forEach((user) => {
     // create a list item using the helper function and append it to the fragment
+    console.log(`USER: ${JSON.stringify(user, null, 2)}`);
+    checkName(user);
     const userListItem = createListItem(user);
     listFragment.appendChild(userListItem);
   });
@@ -133,22 +124,6 @@ populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choic
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
 
-// NOTE: so I guess I kind of already did this above, so I'm going to paste the code here and comment it out for reference, but I'm leaving it up top because arrow functions and I need it to exist before it's use cases.
-
-// *****Original function definition LINE 47*****
-
-// const populateList = (outputElement, userArray, ...args) => {
-//   const listFragment = document.createDocumentFragment();
-
-//   userArray.forEach((user) => {
-//     // create a list item using the helper function and append it to the fragment
-//     const userListItem = createListItem(user);
-//     listFragment.appendChild(userListItem);
-//   });
-
-//   outputElement.appendChild(listFragment);
-// }
-
 populateList(functionList, users);
 
 
@@ -158,6 +133,6 @@ populateList(ageFilterList, users, 40);
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
-// 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
 
-// });
+// 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
+populateList(brokenArrayErrors, badUsers);
