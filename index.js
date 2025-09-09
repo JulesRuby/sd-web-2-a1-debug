@@ -93,9 +93,9 @@ const populateList = (outputElement, userArray, age = null) => {
 }
 
 // logs user data from an array. It can take additional arguments as strings to print out specific user attributes, which should make it a bit more versatile when you only want to log specific data
-const logUserData = (userArray, ...args) => {
+const logUserData = (userArray, ...rest) => {
   // if no particular arguments are specified as a second parameter, default to accessing id, name, and age
-  const attributes = args.length ? args : ["id", "name", "age"];
+  const attributes = rest.length ? rest : ["id", "name", "age"];
 
   userArray.forEach((user) => {
     const userInfo = attributes.map((attr) => `${attr}: ${user[attr]}`).join(`,\n`);
