@@ -89,6 +89,7 @@ const populateList = (outputElement, userArray, age = null) => {
     listFragment.appendChild(userListItem);
   });
 
+  // TODO: Ashlyn asked to refactor this to use string interpolation instead of appending the fragment? Though as I am typing this out, I'm not sure it makes sense to do that. They probably meant within the createListItem function? I'll look into it and ask again later. I'm too tired to function so I'm probably missing something obvious.
   outputElement.appendChild(listFragment);
 }
 
