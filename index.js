@@ -1,7 +1,7 @@
 "use strict";
 
 // sample data - expanded Star Wars characters with varied ages
-let users = [
+const users = [
   { id: 1, name: "Luke Skywalker", age: 23 },
   { id: 2, name: "Darth Vader", age: 45 },
   { id: 3, name: "Princess Leia", age: 23 },
@@ -14,9 +14,21 @@ let users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
+const badUsers = [
+  { id: 1, name: "", age: 23 },
+  { id: 2, name: null, age: 45 },
+  { id: 3, name: "Princess Leia", age: 23 },
+  { id: 4, name: "Obi-Wan Kenobi", age: 57 },
+  { id: 5, name: "Yoda", age: 900 },
+  { id: 6, name: undefined, age: 32 },
+  { id: 7, name: 0, age: 234 },
+  { id: 8, name: "R2-D2", age: 33 },
+  { id: 9, age: 112 },
+  { id: 10, name: "Padmé Amidala", age: 27 },
+];
+
 // Empty array to contain error messages
 const errors = [];
-
 
 
 
