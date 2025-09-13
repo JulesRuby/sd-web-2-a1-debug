@@ -11,7 +11,7 @@ This is a summary of the main tasks you need to complete.
 - [x] **Part 1: Environment**
   - [x] Verify Node.js is installed correctly.
   - [x] Capture a screenshot of the `node` prompt with your name.
-- [ ] **Part 2: The Project**
+- [x] **Part 2: The Project**
   - [x] (Just did a fork and clone) Download a zip folder of this repository from github and initialize a new repo with it. When this is complete, you should be able to edit the code in your editor and then push it to github
   - [x] Create a `.gitignore` file.
   - [x] Create a folder for static assets (e.g., `public/` or `assets/`)
