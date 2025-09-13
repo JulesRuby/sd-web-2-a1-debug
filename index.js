@@ -14,9 +14,6 @@ const users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
-// Empty array to contain error messages (NOT REALLY NECESSARY, BUT WHY NOT)
-const errors = [];
-
 // STORED ELEMENT REFERENCES
 const namesList = document.getElementById("names-list");
 const youngCharactersList = document.getElementById("young-characters-list");
@@ -53,36 +50,11 @@ const createListItem = (userData) => {
 
 const displayErrorMessage = (errorData, errorOutputElement) => {
   const errorCodeElement = document.createElement("code");
-  // const idSpan = document.createElement("span");
-  // const textNode = document.createTextNode(userData.name);
-
-  // idSpan.classList.add("id-span");
-  // idSpan.textContent = `ID: ${userData.id} `;
-
-  // listItem.appendChild(idSpan);
-  errorCodeElement.innerText(errorData.message);
-
+  // errorCodeElement.innerText(errorData.message);
+  errorCodeElement.innerText = `${errorData.message}\n`;
   errorOutputElement.appendChild(errorCodeElement);
-
-  // return listItem;
 }
 
-// creates a document fragment in which to insert the generated <li> elements, then append the fragment to the <ul> in order to avoid redraws and improve performance
-const populateList = (outputElement, userArray, age = null) => {
-  const listFragment = document.createDocumentFragment();
-  userArray = (testAgeParam(age)) ? userArray.filter(user => user.age < age) : userArray;
-
-  userArray.forEach((user) => {
-    // create a list item using the helper function and append it to the fragment
-    // console.log(`USER: ${JSON.stringify(user, null, 2)}`);
-    // checkName(user);
-    const userListItem = createListItem(user);
-    listFragment.appendChild(userListItem);
-  });
-
-  // TODO: Ashlyn asked to refactor this to use string interpolation instead of appending the fragment? Though as I am typing this out, I'm not sure it makes sense to do that. They probably meant within the createListItem function? I'll look into it and ask again later. I'm too tired to function so I'm probably missing something obvious.
-  outputElement.appendChild(listFragment);
-}
 
 // logs user data from an array. It can take additional arguments as strings to print out specific user attributes, which should make it a bit more versatile when you only want to log specific data
 const logUserData = (userArray, ...rest) => {
@@ -114,21 +86,36 @@ const usersBadNameData = [
 console.log("=============\nPart 1: All user names:\n==============\n\n");
 
 logUserData(users);
-populateList(namesList, users);
-
+const listFragmentPartOne = document.createDocumentFragment();
+users.forEach((user) => {
+  const userListItem = createListItem(user);
+  listFragmentPartOne.appendChild(userListItem);
+});
+namesList.appendChild(listFragmentPartOne);
 
 
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
 
 const ageFortyArray = users.filter((user) => user.age < 40);
 console.log("=============\nPart 2: Users under 40\n==============\n\n");
-
 logUserData(ageFortyArray, "name", "age");
-populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
+
+const listFragmentPartTwo = document.createDocumentFragment();
+
+ageFortyArray.forEach((user) => {
+  const userListItem = createListItem(user);
+  listFragmentPartTwo.appendChild(userListItem);
+});
+
+youngCharactersList.appendChild(listFragmentPartTwo);
+// populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
 
-function populateListFromArray(outputElement, userArray) {
+// function populateListFromArray(outputElement, userArray, errorOutputElement = null) {
+function populateListFromArray(userArray, options = {}) {
+  // Destructure options
+  const { outputElement = null, errorOutputElement = null } = options;
   // Create Document Fragment to hold list items
   const listFragment = document.createDocumentFragment();
 
@@ -136,25 +123,33 @@ function populateListFromArray(outputElement, userArray) {
     // create a list item using the helper function and append it to the fragment
     try {
       checkValidName(user);
-      const userListItem = createListItem(user);
-      listFragment.appendChild(userListItem);
-    } catch (error) {
-      console.log(error.message);
 
+      if (outputElement !== null) {
+        const userListItem = createListItem(user);
+        listFragment.appendChild(userListItem);
+      }
+
+    } catch (error) {
+
+      if (errorOutputElement !== null) {
+      }
     }
-    // const userListItem = createListItem(user);
-    // listFragment.appendChild(userListItem);
   });
 
-  outputElement.appendChild(listFragment);
+  if (outputElement !== null) {
+    outputElement.appendChild(listFragment);
+  }
 }
 
-populateListFromArray(functionList, users);
+populateListFromArray(users, {outputElement: functionList});
 
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
 
-function populateListFromFilteredArray(outputElement, userArray, age = null) {
+// function populateListFromFilteredArray(outputElement, userArray, age = null) {
+function populateListFromFilteredArray(userArray, options = {}) {
+  // Destructure options, defaulting either to null if not provided
+  const { age = null, outputElement = null, errorOutputElement = null } = options;
   // Create Document Fragment to hold list items
   const listFragment = document.createDocumentFragment();
 
@@ -164,22 +159,27 @@ function populateListFromFilteredArray(outputElement, userArray, age = null) {
   userArray.forEach((user) => {
     try {
       checkValidName(user);
+
+
       const userListItem = createListItem(user);
       listFragment.appendChild(userListItem);
     } catch (error) {
       console.log(error);
       displayErrorMessage(error, errorMessages);
 
+      if (errorOutputElement !== null) {
+        displayErrorMessage(error, errorOutputElement);
+      }
     }
-
-
   });
 
-  outputElement.appendChild(listFragment);
+  if (outputElement !== null) {
+    outputElement.appendChild(listFragment);
+  }
 }
 
 // populateList(ageFilterList, users, 40);
-populateListFromFilteredArray(ageFilterList, users, 40);
+populateListFromFilteredArray(users, {outputElement: ageFilterList, age: 40});
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
@@ -194,7 +194,7 @@ function checkValidName(user) {
       `Error: User object with ID ${user.id} is missing a valid "name" property.`
     );
 
-    // console.error(nameError);
+    console.error(nameError);
     throw nameError;
   }
 };
@@ -203,5 +203,11 @@ function checkValidName(user) {
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
 // populateList(brokenArrayErrors, usersBadNameData);
 
-populateListFromArray(brokenArrayErrors, usersBadNameData);
-populateListFromFilteredArray(brokenArrayErrors, usersBadNameData, 40);
+populateListFromArray(usersBadNameData, {
+  errorOutputElement: brokenArrayErrors
+});
+
+populateListFromFilteredArray(usersBadNameData, {
+  age: 40,
+  errorOutputElement: brokenArrayErrors
+});
