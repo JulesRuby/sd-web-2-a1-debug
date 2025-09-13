@@ -50,11 +50,9 @@ const createListItem = (userData) => {
 
 const displayErrorMessage = (errorData, errorOutputElement) => {
   const errorCodeElement = document.createElement("code");
-  // errorCodeElement.innerText(errorData.message);
   errorCodeElement.innerText = `${errorData.message}\n`;
   errorOutputElement.appendChild(errorCodeElement);
 }
-
 
 // logs user data from an array. It can take additional arguments as strings to print out specific user attributes, which should make it a bit more versatile when you only want to log specific data
 const logUserData = (userArray, ...rest) => {
@@ -108,11 +106,9 @@ ageFortyArray.forEach((user) => {
 });
 
 youngCharactersList.appendChild(listFragmentPartTwo);
-// populateList(youngCharactersList, ageFortyArray); // TODO: adjust to allow choice of which attributes to place in list items
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
 
-// function populateListFromArray(outputElement, userArray, errorOutputElement = null) {
 function populateListFromArray(userArray, options = {}) {
   // Destructure options
   const { outputElement = null, errorOutputElement = null } = options;
@@ -128,10 +124,10 @@ function populateListFromArray(userArray, options = {}) {
         const userListItem = createListItem(user);
         listFragment.appendChild(userListItem);
       }
-
+      
     } catch (error) {
-
       if (errorOutputElement !== null) {
+        displayErrorMessage(error, errorOutputElement);
       }
     }
   });
@@ -146,7 +142,6 @@ populateListFromArray(users, {outputElement: functionList});
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
 
-// function populateListFromFilteredArray(outputElement, userArray, age = null) {
 function populateListFromFilteredArray(userArray, options = {}) {
   // Destructure options, defaulting either to null if not provided
   const { age = null, outputElement = null, errorOutputElement = null } = options;
@@ -178,7 +173,6 @@ function populateListFromFilteredArray(userArray, options = {}) {
   }
 }
 
-// populateList(ageFilterList, users, 40);
 populateListFromFilteredArray(users, {outputElement: ageFilterList, age: 40});
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
@@ -199,9 +193,7 @@ function checkValidName(user) {
   }
 };
 
-
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
-// populateList(brokenArrayErrors, usersBadNameData);
 
 populateListFromArray(usersBadNameData, {
   errorOutputElement: brokenArrayErrors
