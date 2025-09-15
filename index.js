@@ -91,14 +91,17 @@ console.log('=============\nPart 1: All user names:\n==============\n\n');
 
 logUserData(users);
 const listFragmentPartOne = document.createDocumentFragment();
+
 users.forEach(user => {
 	const userListItem = createListItem(user);
 	listFragmentPartOne.appendChild(userListItem);
 });
+
+namesList.textContent = ''; // Clear
 namesList.appendChild(listFragmentPartOne);
 
 if (namesList.children.length !== 0) {
-  namesList.textContent = ''; // Clear 	namesList.classList.remove('empty-list');
+  namesList.classList.remove('empty-list');
 }
 
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
@@ -114,10 +117,10 @@ ageFortyArray.forEach(user => {
 	listFragmentPartTwo.appendChild(userListItem);
 });
 
+youngCharactersList.textContent = '';
 youngCharactersList.appendChild(listFragmentPartTwo);
 
 if (youngCharactersList.children.length !== 0) {
-  youngCharactersList.textContent = '';
 	youngCharactersList.classList.remove('empty-list');
 }
 
@@ -136,6 +139,7 @@ function populateListFromArray(userArray, options = {}) {
 
 			if (outputElement !== null) {
 				const userListItem = createListItem(user);
+        outputElement.textContent = '';
 				listFragment.appendChild(userListItem);
 			}
 		} catch (error) {
@@ -150,7 +154,6 @@ function populateListFromArray(userArray, options = {}) {
 	}
 
 	if (outputElement.children.length !== 0) {
-    outputElement.textContent = '';
 		outputElement.classList.remove('empty-list');
 	}
 }
@@ -179,6 +182,7 @@ function populateListFromFilteredArray(userArray, options = {}) {
 			checkValidName(user);
 
 			const userListItem = createListItem(user);
+      outputElement.textContent = '';
 			listFragment.appendChild(userListItem);
 		} catch (error) {
 			console.error(error);
@@ -195,7 +199,6 @@ function populateListFromFilteredArray(userArray, options = {}) {
 	}
 
 	if (outputElement.children.length !== 0) {
-    outputElement.textContent = '';
 		outputElement.classList.remove('empty-list');
 	}
 }
