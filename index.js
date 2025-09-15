@@ -19,7 +19,9 @@ const namesList = document.getElementById("names-list");
 const youngCharactersList = document.getElementById("young-characters-list");
 const functionList = document.getElementById("function-list");
 const ageFilterList = document.getElementById("age-filter-list");
+const errorHandlingList = document.getElementById("error-handling-list");
 const errorMessages = document.getElementById("error-messages");
+const brokenArrayList = document.getElementById("broken-array-list");
 const brokenArrayErrors = document.getElementById("broken-array-errors");
 
 // HELPER FUNCTIONS
@@ -50,6 +52,7 @@ const createListItem = (userData) => {
 
 const displayErrorMessage = (errorData, errorOutputElement) => {
   const errorCodeElement = document.createElement("code");
+  errorCodeElement.classList.add("error-message");
   errorCodeElement.innerText = `${errorData.message}\n`;
   errorOutputElement.appendChild(errorCodeElement);
 }
@@ -171,7 +174,7 @@ function populateListFromFilteredArray(userArray, options = {}) {
       const userListItem = createListItem(user);
       listFragment.appendChild(userListItem);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       displayErrorMessage(error, errorMessages);
 
       if (errorOutputElement !== null) {
@@ -186,7 +189,7 @@ function populateListFromFilteredArray(userArray, options = {}) {
 
   if(outputElement.children.length !== 0) {
   outputElement.classList.remove("empty-list");
-}
+  }
 }
 
 populateListFromFilteredArray(users, {outputElement: ageFilterList, age: 40});
@@ -212,10 +215,12 @@ function checkValidName(user) {
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
 
 populateListFromArray(usersBadNameData, {
-  errorOutputElement: brokenArrayErrors
+  outputElement: errorHandlingList,
+  errorOutputElement: errorMessages
 });
 
 populateListFromFilteredArray(usersBadNameData, {
   age: 40,
+  outputElement: brokenArrayList,
   errorOutputElement: brokenArrayErrors
 });
