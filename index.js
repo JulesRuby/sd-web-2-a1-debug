@@ -41,6 +41,7 @@ const createListItem = (userData) => {
   const idSpan = document.createElement("span");
   const textNode = document.createTextNode(userData.name);
 
+  listItem.classList.add("success");
   idSpan.classList.add("id-span");
   idSpan.textContent = `ID: ${userData.id} `;
 
