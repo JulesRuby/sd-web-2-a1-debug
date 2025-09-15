@@ -98,7 +98,7 @@ users.forEach(user => {
 namesList.appendChild(listFragmentPartOne);
 
 if (namesList.children.length !== 0) {
-	namesList.classList.remove('empty-list');
+  namesList.textContent = ''; // Clear 	namesList.classList.remove('empty-list');
 }
 
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
@@ -117,6 +117,7 @@ ageFortyArray.forEach(user => {
 youngCharactersList.appendChild(listFragmentPartTwo);
 
 if (youngCharactersList.children.length !== 0) {
+  youngCharactersList.textContent = '';
 	youngCharactersList.classList.remove('empty-list');
 }
 
@@ -149,6 +150,7 @@ function populateListFromArray(userArray, options = {}) {
 	}
 
 	if (outputElement.children.length !== 0) {
+    outputElement.textContent = '';
 		outputElement.classList.remove('empty-list');
 	}
 }
@@ -193,6 +195,7 @@ function populateListFromFilteredArray(userArray, options = {}) {
 	}
 
 	if (outputElement.children.length !== 0) {
+    outputElement.textContent = '';
 		outputElement.classList.remove('empty-list');
 	}
 }
